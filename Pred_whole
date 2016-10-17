@@ -1,0 +1,168 @@
+#-*- coding: utf-8 -*-
+import csv
+import numpy as np
+
+Pred_analysis =[]
+real_analysis=[]
+PA=0
+RA=0
+T =0
+TP=0.0
+FP=0.0
+FN=0.0
+TN=0.0
+TP_num=[]
+FP_num=[]
+FN_num=[]
+TN_num=[]
+Pa_Aircon = 0.0
+Pa_Washer = 0.0
+Pa_Pehumidifier = 0.0
+Pa_Oven = 0.0
+Pa_TV = 0.0
+Pa_Toster = 0.0
+real_Aircon = 0.0
+real_Washer = 0.0
+real_Pehumidifier = 0.0
+real_Oven = 0.0
+real_TV = 0.0
+real_Toster = 0.0
+Aircon = 0.0
+Washer = 0.0
+Pehumidifier = 0.0
+Oven = 0.0
+TV = 0.0
+Toster = 0.0
+with open('compare_log8.csv') as csvf:
+    rd = csv.reader(csvf)
+    t = next(rd)
+    for fieldname in t:
+        print fieldname,
+
+    print
+    for idx, data in enumerate(rd):
+
+        Pred_analysis.append(''.join(bin(int(data[0])))[2:].zfill(6))
+        if float(Pred_analysis[PA][0]) == 1:
+            Pa_Aircon+=1
+        if float(Pred_analysis[PA][1]) == 1:
+            Pa_Washer+=1
+        if float(Pred_analysis[PA][2]) == 1:
+            Pa_Pehumidifier+=1
+        if float(Pred_analysis[PA][3]) == 1:
+            Pa_Oven+=1
+        if float(Pred_analysis[PA][4]) == 1:
+            Pa_TV+=1
+        if float(Pred_analysis[PA][5]) == 1:
+            Pa_Toster+=1
+        PA+=1
+
+        real_analysis.append(''.join(bin(int(data[1])))[2:].zfill(6))
+        if float(real_analysis[RA][0]) == 1:
+            real_Aircon+=1
+        if float(real_analysis[RA][1]) == 1:
+            real_Washer+=1
+        if float(real_analysis[RA][2]) == 1:
+            real_Pehumidifier+=1
+        if float(real_analysis[RA][3]) == 1:
+            real_Oven+=1
+        if float(real_analysis[RA][4]) == 1:
+            real_TV+=1
+        if float(real_analysis[RA][5]) == 1:
+            real_Toster+=1
+        RA+=1
+
+        #if int(data[2]) == 1:
+            #T+=1
+        if float(data[0])>0 and float(data[1])>0:
+            if float(data[0]) == float(data[1]):
+                #if int(data[2]) == 1:
+                    #print "TP"
+                TP_num.append(''.join(bin(int(data[0])))[2:].zfill(6))
+                if float(TP_num[int(TP)][0]) == 1:
+                    Aircon+=1
+                if float(TP_num[int(TP)][1]) == 1:
+                    Washer+=1
+                if float(TP_num[int(TP)][2]) == 1:
+                    Pehumidifier+=1
+                if float(TP_num[int(TP)][3]) == 1:
+                    Oven+=1
+                if float(TP_num[int(TP)][4]) == 1:
+                    TV+=1
+                if float(TP_num[int(TP)][5]) == 1:
+                    Toster+=1
+                TP+=1
+            elif float(data[0])>float(data[1]):
+                #print "FP"
+                FP_num.append(''.join(bin(int(data[0])))[2:].zfill(6))
+                FP+=1
+            elif float(data[0])<float(data[1]):
+                #print "FN"
+                FN_num.append(''.join(bin(int(data[0])))[2:].zfill(6))
+                FN+=1
+        else :
+            if float(data[0]) == 0 and float(data[1]) == 0:
+                #print "TN"
+                TN_num.append(''.join(bin(int(data[0])))[2:].zfill(6))
+                TN+=1
+            elif float(data[0])>float(data[1]):
+                #print "FP"
+                FP_num.append(''.join(bin(int(data[0])))[2:].zfill(6))
+                FP+=1
+            elif float(data[0])<float(data[1]):
+                #print "FN"
+                FN_num.append(''.join(bin(int(data[0])))[2:].zfill(6))
+                FN+=1
+    print "TP="+str(TP), "FP="+str(FP), "FN="+str(FN), "TN="+str(TN)
+    #print "True="+ str(T)
+    total = TP+FP+FN+TN
+    print "result="+str(total)
+    print "TP_num="+str(len(TP_num))
+    print "on =" + str(T)
+    TP_bit = len(TP_num)*6
+    print "Pa_Aircon num="+str(Pa_Aircon)
+    print "Pa_Washer num="+str(Pa_Washer)
+    print "Pa_dehumidifier num="+str(Pa_Pehumidifier)
+    print "Pa_Oven num="+str(Pa_Oven)
+    print "Pa_TV num="+str(Pa_TV)
+    print "Pa_Toster num="+str(Pa_Toster)
+    print
+    print "real_Aircon num="+str(real_Aircon)
+    print "real_Washer num="+str(real_Washer)
+    print "real_dehumidifier num="+str(real_Pehumidifier)
+    print "real_Oven num="+str(real_Oven)
+    print "real_TV num="+str(real_TV)
+    print "real_Toster num="+str(real_Toster)
+    print
+    print "Aircon num="+str(Aircon)
+    print "Washer num="+str(Washer)
+    print "dehumidifier num="+str(Pehumidifier)
+    print "Oven num="+str(Oven)
+    print "TV num="+str(TV)
+    print "Toster num="+str(Toster)
+    print
+    print "Aircon="+str(Aircon/real_Aircon)
+    print "Washer="+str(Washer/real_Washer)
+    print "dehumidipier="+str(Pehumidifier/real_Pehumidifier)
+    print "Oven="+str(Oven/real_Oven)
+    print "TV="+str(TV/real_TV)
+    print "Toster="+str(Toster/real_Toster)
+    print
+    #print FP_num
+    #print FN_num
+    #print TN_num
+
+    precision = TP/(TP+FP)
+    print "precision= "+ str(precision)
+
+    recall = TP/(TP+FN)
+    print "recall= "+ str(recall)
+
+    accuracy = (TP+TN)/(TP+TN+FP+FN)
+    print "accuracy= "+ str(accuracy)
+
+    F_measure = 2*((precision*recall)/(precision+recall))
+    print "F_measure= "+ str(F_measure)
+
+    misclassification = (FP+FN)/total
+    print "misclassification= "+ str(misclassification)
