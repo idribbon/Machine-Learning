@@ -1,0 +1,185 @@
+#-*- coding: utf-8 -*-
+import csv
+import numpy as np
+
+Pred_analysis =[]
+real_analysis=[]
+PA=0
+RA=0
+T =0
+TP=0.0
+FP=0.0
+FN=0.0
+TN=0.0
+PA_TP_num=[]
+PA_FP_num=[]
+PA_FN_num=[]
+PA_TN_num=[]
+RA_TP_num=[]
+RA_FP_num=[]
+RA_FN_num=[]
+RA_TN_num=[]
+TP_Aircon = 0.0
+TP_Washer = 0.0
+TP_Pehumidifier = 0.0
+TP_Oven = 0.0
+TP_TV = 0.0
+TP_Toster = 0.0
+FP_Aircon = 0.0
+FP_Washer = 0.0
+FP_Pehumidifier = 0.0
+FP_Oven = 0.0
+FP_TV = 0.0
+FP_Toster = 0.0
+FN_Aircon = 0.0
+FN_Washer = 0.0
+FN_Pehumidifier = 0.0
+FN_Oven = 0.0
+FN_TV = 0.0
+FN_Toster = 0.0
+TN_Aircon = 0.0
+TN_Washer = 0.0
+TN_Pehumidifier = 0.0
+TN_Oven = 0.0
+TN_TV = 0.0
+TN_Toster = 0.0
+count = 0
+
+with open('compare_log8.csv') as csvf:
+    rd = csv.reader(csvf)
+    t = next(rd)
+    for fieldname in t:
+        print fieldname,
+
+    print
+    for idx, data in enumerate(rd):
+        PA_TP_num.append(''.join(bin(int(data[0])))[2:].zfill(6))
+        RA_TP_num.append(''.join(bin(int(data[1])))[2:].zfill(6))
+        if int(PA_TP_num[int(count)][0]) == 1 and int(RA_TP_num[int(count)][0]) == 1:
+            TP_Aircon+=1
+        if int(PA_TP_num[int(count)][0]) == 1 and int(RA_TP_num[int(count)][0]) == 0:
+            FP_Aircon+=1
+        if int(PA_TP_num[int(count)][0]) == 0 and int(RA_TP_num[int(count)][0]) == 1:
+            FN_Aircon+=1
+        if int(PA_TP_num[int(count)][0]) == 0 and int(RA_TP_num[int(count)][0]) == 0:
+            TN_Aircon+=1
+        if int(PA_TP_num[int(count)][1]) == 1 and int(RA_TP_num[int(count)][1]) == 1:
+            TP_Washer+=1
+        if int(PA_TP_num[int(count)][1]) == 1 and int(RA_TP_num[int(count)][1]) == 0:
+            FP_Washer+=1
+        if int(PA_TP_num[int(count)][1]) == 0 and int(RA_TP_num[int(count)][1]) == 1:
+            FN_Washer+=1
+        if int(PA_TP_num[int(count)][1]) == 0 and int(RA_TP_num[int(count)][1]) == 0:
+            TN_Washer+=1
+        if int(PA_TP_num[int(count)][2]) == 1 and int(RA_TP_num[int(count)][2]) == 1:
+            TP_Pehumidifier+=1
+        if int(PA_TP_num[int(count)][2]) == 1 and int(RA_TP_num[int(count)][2]) == 0:
+            FP_Pehumidifier+=1
+        if int(PA_TP_num[int(count)][2]) == 0 and int(RA_TP_num[int(count)][2]) == 1:
+            FN_Pehumidifier+=1
+        if int(PA_TP_num[int(count)][2]) == 0 and int(RA_TP_num[int(count)][2]) == 0:
+            TN_Pehumidifier+=1
+        if int(PA_TP_num[int(count)][3]) == 1 and int(RA_TP_num[int(count)][3]) == 1:
+            TP_Oven+=1
+        if int(PA_TP_num[int(count)][3]) == 1 and int(RA_TP_num[int(count)][3]) == 0:
+            FP_Oven+=1
+        if int(PA_TP_num[int(count)][3]) == 0 and int(RA_TP_num[int(count)][3]) == 1:
+            FN_Oven+=1
+        if int(PA_TP_num[int(count)][3]) == 0 and int(RA_TP_num[int(count)][3]) == 0:
+            TN_Oven+=1
+        if int(PA_TP_num[int(count)][4]) == 1 and int(RA_TP_num[int(count)][4]) == 1:
+            TP_TV+=1
+        if int(PA_TP_num[int(count)][4]) == 1 and int(RA_TP_num[int(count)][4]) == 0:
+            FP_TV+=1
+        if int(PA_TP_num[int(count)][4]) == 0 and int(RA_TP_num[int(count)][4]) == 1:
+            FN_TV+=1
+        if int(PA_TP_num[int(count)][4]) == 0 and int(RA_TP_num[int(count)][4]) == 0:
+            TN_TV+=1
+        if int(PA_TP_num[int(count)][5]) == 1 and int(RA_TP_num[int(count)][5]) == 1:
+            TP_Toster+=1
+        if int(PA_TP_num[int(count)][5]) == 1 and int(RA_TP_num[int(count)][5]) == 0:
+            FP_Toster+=1
+        if int(PA_TP_num[int(count)][5]) == 0 and int(RA_TP_num[int(count)][5]) == 1:
+            FN_Toster+=1
+        if int(PA_TP_num[int(count)][5]) == 0 and int(RA_TP_num[int(count)][5]) == 0:
+            TN_Toster+=1
+        count+=1
+    print "====================================="
+    print count
+    print "====================================="
+
+    #########################################################################
+
+    print "기기별 정확도"
+    print "====== Aircon ======"
+    A_P = TP_Aircon/(TP_Aircon+FP_Aircon)
+    print "Precision = " + str(A_P)
+    A_R = TP_Aircon/(TP_Aircon+FN_Aircon)
+    print "Recall = " + str(A_R)
+    A_A = (TP_Aircon+TN_Aircon)/(TP_Aircon+TN_Aircon+FP_Aircon+FN_Aircon)
+    print "Accuracy = " + str(A_A)
+    print "F_measure = " + str(2*((A_P*A_R)/(A_P+A_R)))
+    print "TP_Aircon = " + str(TP_Aircon)
+    print "FP_Aircon = " + str(FP_Aircon)
+    print "FN_Aircon = " + str(FN_Aircon)
+    print "TN_Aircon = " + str(TN_Aircon)
+    print "====== Washer ======"
+    W_P = TP_Washer/(TP_Washer+FP_Washer)
+    print "Precision = " + str(W_P)
+    W_R = TP_Washer/(TP_Washer+FN_Washer)
+    print "Recall = " + str(W_R)
+    W_A = (TP_Washer+TN_Washer)/(TP_Washer+TN_Washer+FP_Washer+FN_Washer)
+    print "Accuracy = " + str(W_A)
+    print "F_measure = " + str(2*((W_P*W_R)/(W_P+W_R)))
+    print "TP_Washer = " + str(TP_Washer)
+    print "FP_Washer = " + str(FP_Washer)
+    print "FN_Washer = " + str(FN_Washer)
+    print "TN_Washer = " + str(TN_Washer)
+    print "====== dehumidipier ======"
+    D_P = TP_Pehumidifier/(TP_Pehumidifier+FP_Pehumidifier)
+    print "Precision = " + str(D_P)
+    D_R = TP_Pehumidifier/(TP_Pehumidifier+FN_Pehumidifier)
+    print "Recall = " + str(D_R)
+    D_A = (TP_Pehumidifier+TN_Pehumidifier)/(TP_Pehumidifier+TN_Pehumidifier+FP_Pehumidifier+FN_Pehumidifier)
+    print "Accuracy = " + str(D_A)
+    print "F_measure = " + str(2*((D_P*D_R)/(D_P+D_R)))
+    print "TP_Pehumidifierv = " + str(TP_Pehumidifier)
+    print "FP_dehumidifier = " + str(FP_Pehumidifier)
+    print "FN_dehumidifier = " + str(FN_Pehumidifier)
+    print "TN_dehumidifier = " + str(TN_Pehumidifier)
+    print "====== Oven ======"
+    O_P = TP_Oven/(TP_Oven+FP_Oven)
+    print "Precision = " + str(O_P)
+    O_R = TP_Oven/(TP_Oven+FN_Oven)
+    print "Recall = " + str(O_R)
+    O_A = (TP_Oven+TN_Oven)/(TP_Oven+TN_Oven+FP_Oven+FN_Oven)
+    print "Accuracy = " + str(O_A)
+    print "F_measure = " + str(2*((O_P*O_R)/(O_P+O_R)))
+    print "TP_Oven = " + str(TP_Oven)
+    print "FP_Oven = " + str(FP_Oven)
+    print "FN_Oven = " + str(FN_Oven)
+    print "TN_Oven = " + str(TN_Oven)
+    print "====== TV ======"
+    T_P = TP_TV/(TP_TV+FP_TV)
+    print "Precision = " + str(T_P)
+    T_R = TP_TV/(TP_TV+FN_TV)
+    print "Recall = " + str(T_R)
+    T_A = (TP_TV+TN_TV)/(TP_TV+TN_TV+FP_TV+FN_TV)
+    print "Accuracy = " + str(T_A)
+    print "F_measure = " + str(2*((T_P*T_R)/(T_P+T_R)))
+    print "TP_TV = " + str(TP_TV)
+    print "FP_TV = " + str(FP_TV)
+    print "FN_TV = " + str(FN_TV)
+    print "TN_TV + " + str(TN_TV)
+    print "====== Toster ======"
+    TO_P = TP_Toster/(TP_Toster+FP_Toster)
+    print "Precision = " + str(TO_P)
+    TO_R = TP_Toster/(TP_Toster+FN_Toster)
+    print "Recall = " + str(TO_R)
+    TO_A = (TP_Toster+TN_Toster)/(TP_Toster+TN_Toster+FP_Toster+FN_Toster)
+    print "Accuracy = " + str(TO_A)
+    print "F_measure = " + str(2*((TO_P*TO_R)/(TO_P+TO_R)))
+    print "TP_Toster = " + str(TP_Toster)
+    print "FP_Toster = " + str(FP_Toster)
+    print "FN_Toster = " + str(FN_Toster)
+    print "TN_Toster = " + str(TN_Toster)
